@@ -13,6 +13,16 @@ import PySwiftCore
 //	}
 //}
 
+extension PyPointer: CustomStringConvertible {
+	public var description: String {
+		guard let str = PyObject_Str(self) else { return "\(self.debugDescription)"}
+		defer { str.decref() }
+		return .init(cString: PyUnicode_AsUTF8(str))
+	}
+	
+	
+}
+
 
 extension PythonPointer: ExpressibleByUnicodeScalarLiteral {
     public typealias UnicodeScalarLiteralType = String

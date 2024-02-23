@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import PythonCore
+import PySwiftCore
 
 public protocol PyTypeProtocol {
 	static func ~=(l: Self, r: PyPointer) -> Bool
@@ -15,7 +15,7 @@ public protocol PyTypeProtocol {
 
 extension PyPointer {
 	
-	public static func ~=(l: PythonType, r: PyPointer) -> Bool  {
+	public static func ~=(l: UnsafeMutablePointer<PyTypeObject>, r: PyPointer) -> Bool  {
 		return PyObject_TypeCheck(r, l) == 1
 	}
 	
@@ -40,9 +40,9 @@ public extension Optional where Wrapped == UnsafeMutablePointer<PyTypeObject> {
 }
 
 
-public let pyLong_Type = UnsafeMutablePointer(&PyLong_Type)//PythonType.newType(PyLong_Type)!
+public var pyLong_Type = UnsafeMutablePointer(&PyLong_Type)//PythonType.newType(PyLong_Type)!
 public let pyFloat_Type = UnsafeMutablePointer(&PyFloat_Type)
-public let pyUnicode_Type = UnsafeMutablePointer(&PyUnicode_Type)
+public var pyUnicode_Type = UnsafeMutablePointer(&PyUnicode_Type)
 public let pyComplex_Type = UnsafeMutablePointer(&PyComplex_Type)
 public let pyBool_Type = UnsafeMutablePointer(&PyBool_Type)
 

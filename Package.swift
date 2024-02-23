@@ -46,11 +46,22 @@ let package = Package(
 			name: "PyExpressible",
 			targets: ["PyExpressible"]
 		),
-		
+		.library(
+			name: "PyComparable",
+			targets: ["PyComparable"]
+		),
+		.library(
+			name: "PyEncode",
+			targets: ["PyEncode"]
+		),
+		.library(
+			name: "PyDecode",
+			targets: ["PyDecode"]
+		),
 	],
 	dependencies: [
-		.package(path: "../PythonCore"),
-		//		.package(url: "https://github.com/PythonSwiftLink/PythonCore", .upToNextMajor(from: .init(311, 0, 0)))
+//		.package(path: "/Volumes/CodeSSD/GitHub/PythonCore"),
+		.package(url: "https://github.com/PythonSwiftLink/PythonCore", .upToNextMajor(from: .init(311, 0, 0))),
 		//.package(url: "https://github.com/PythonSwiftLink/PythonTestSuite", branch: "master"),
 			.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
 	],
@@ -119,6 +130,14 @@ let package = Package(
 				"PySwiftCore",
 				"PyDecode",
 				"PyEncode"
+			]
+		),
+		.target(
+			name: "PyComparable",
+			dependencies: [
+				"PySwiftCore",
+				
+				//				"PyEncode"
 			]
 		),
 		.target(

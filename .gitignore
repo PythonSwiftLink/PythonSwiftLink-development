@@ -91,3 +91,5 @@ iOSInjectionProject/
 
 
 *.DS_Store
+Package.resolved
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata

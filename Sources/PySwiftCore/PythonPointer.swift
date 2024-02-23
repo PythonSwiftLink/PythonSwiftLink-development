@@ -36,13 +36,13 @@ extension PyPointer {
 
 
 
-@inlinable public func PyObject_GetAttr(_ o: PyPointer, _ key: String) -> PyPointer {
+@inlinable public func PyObject_GetAttr(_ o: PyPointer, _ key: String) -> PyPointer? {
     key.withCString { string in
         PyObject_GetAttrString(o, string)
     }
 }
 
-@inlinable public func PyObject_GetAttr(_ o: PyPointer, _ key: CodingKey) -> PyPointer {
+@inlinable public func PyObject_GetAttr(_ o: PyPointer, _ key: CodingKey) -> PyPointer? {
     key.stringValue.withCString { string in
         PyObject_GetAttrString(o, string)
     }
