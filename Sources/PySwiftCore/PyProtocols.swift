@@ -22,12 +22,15 @@ public protocol PyBufferProtocol_AnyClass: AnyObject {
 
 public protocol PySequenceProtocol {
 	func __len__() -> Int
-	func __add__(value: PyPointer) -> PyPointer?
-	func __iadd__(value: PyPointer)
-    func __getitem__(idx: Int) -> PyPointer?
-	func __setitem__(idx: Int, value: PyPointer?) -> Int32
-	func __repeat__(count: Int, value: PyPointer?) -> PyPointer?
-	func __irepeat__(count: Int, value: PyPointer?)
+	func __add__(_ other: PyPointer?) -> PyPointer?
+	func __iadd__(_ item: PyPointer?) -> PyPointer?
+	func __mul__(_ n: Int) -> PyPointer?
+	func __imul__(_ n: Int) -> PyPointer?
+    func __getitem__(_ i: Int) -> PyPointer?
+	func __setitem__(_ i: Int, _ item: PyPointer?) -> Int32
+	func __contains__(_ item: PyPointer?) -> Int32
+//	func __repeat__(count: Int, value: PyPointer?) -> PyPointer?
+//	func __irepeat__(count: Int, value: PyPointer?)
 }
 
 public protocol PyMappingProtocol {
@@ -39,10 +42,10 @@ public protocol PyMappingProtocol {
 public protocol PyMutableMappingProtocol {
 	func __len__() -> Int
 	func __getitem__(_ key: PyPointer?) -> PyPointer?
-	func __setitem__(_ key: PyPointer?, _ item: PyPointer?) -> PyPointer?
-	func __getitem__(key: String) -> PyPointer?
-	func __setitem__(key: String, value: PyPointer) -> Int32
-	func __delitem__(key: String) -> Int32
+	func __setitem__(_ key: PyPointer?, _ item: PyPointer?) -> Int32?
+//	func __getitem__(key: String) -> PyPointer?
+//	func __setitem__(key: String, value: PyPointer) -> Int32
+//	func __delitem__(key: String) -> Int32
 }
 
 public protocol PyNumericProtocol {
