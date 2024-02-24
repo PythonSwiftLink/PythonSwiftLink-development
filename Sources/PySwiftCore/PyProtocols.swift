@@ -42,7 +42,7 @@ public protocol PyMappingProtocol {
 public protocol PyMutableMappingProtocol {
 	func __len__() -> Int
 	func __getitem__(_ key: PyPointer?) -> PyPointer?
-	func __setitem__(_ key: PyPointer?, _ item: PyPointer?) -> Int32?
+	func __setitem__(_ key: PyPointer?, _ item: PyPointer?) -> Int32
 //	func __getitem__(key: String) -> PyPointer?
 //	func __setitem__(key: String, value: PyPointer) -> Int32
 //	func __delitem__(key: String) -> Int32
