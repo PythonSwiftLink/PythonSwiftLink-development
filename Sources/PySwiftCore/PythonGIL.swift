@@ -4,10 +4,10 @@
 
 
 import Foundation
-#if BEEWARE
+//#if BEEWARE
 import PythonCore
 
-#endif
+//#endif
 
 @inlinable
 public func withGIL(handle: @escaping ()->Void ) {

@@ -64,7 +64,7 @@ extension PythonPointer {
     
     @inlinable
         public func getBuffer() -> UnsafeBufferPointer<PythonPointer?> {
-            let fast_list = PySequence_Fast(self, nil)
+            let fast_list = PySequence_Fast(self, nil)!
             let list_count = PySequence_FastSize(fast_list)
             let fast_items = PySequence_FastItems(fast_list)
             let buffer = PySequenceBuffer(start: fast_items, count: list_count)
@@ -73,7 +73,7 @@ extension PythonPointer {
         }
     
     @inlinable public var sequence: UnsafeBufferPointer<PythonPointer?> {
-        let fast_list = PySequence_Fast(self, nil)
+        let fast_list = PySequence_Fast(self, nil)!
         let buffer = PySequenceBuffer(
             start: PySequence_FastItems(fast_list),
             count: PySequence_FastSize(fast_list)
@@ -85,9 +85,9 @@ extension PythonPointer {
     @inlinable public var _sequence: PySequenceBuffer? {
         guard PySequence_Check(self) == 1 else { return nil }
         
-        let fast_list = PySequence_Fast(self, nil)
+        let fast_list = PySequence_Fast(self, nil)!
         let buffer = PySequenceBuffer(
-            start: PySequence_FastItems(fast_list),
+			start: PySequence_FastItems(fast_list),
             count: PySequence_FastSize(fast_list)
         )
         Py_DecRef(fast_list)
@@ -161,7 +161,7 @@ public enum PyUnicode_AsKind: UInt32 {
 @inlinable public func bytesAsDataNoCopy(bytes: PythonPointer) -> Data? {
     let data_size = PyBytes_Size(bytes)
     // PyBytes to MemoryView
-    let mview = PyMemoryView_FromObject(bytes)
+	guard let mview = PyMemoryView_FromObject(bytes) else { return nil }
     // fetch PyBuffer from MemoryView
     let py_buf = PyMemoryView_GetBuffer(mview)
     var indices = [0]
@@ -176,7 +176,7 @@ public enum PyUnicode_AsKind: UInt32 {
 @inlinable public func bytearrayAsDataNoCopy(bytes: PythonPointer) -> Data? {
     let data_size = PyByteArray_Size(bytes)
     // PyBytes to MemoryView
-    let mview = PyMemoryView_FromObject(bytes)
+	guard let mview = PyMemoryView_FromObject(bytes) else { return nil }
     // fetch PyBuffer from MemoryView
     let py_buf = PyMemoryView_GetBuffer(mview)
     var indices = [0]
@@ -193,7 +193,7 @@ public enum PyUnicode_AsKind: UInt32 {
 
 @inlinable public func bytesSlicedAsDataNoCopy(bytes: PythonPointer, start: Int, size: Int) -> Data? {
     // PyBytes to MemoryView
-    let mview = PyMemoryView_FromObject(bytes)
+	guard let mview = PyMemoryView_FromObject(bytes) else { return nil }
     // fetch PyBuffer from MemoryView
     let py_buf = PyMemoryView_GetBuffer(mview)
     var indices = [start]
@@ -212,7 +212,7 @@ extension PythonPointer {
     @inlinable public func bytesAsData() -> Data? {
         let data_size = PyBytes_Size(self)
         // PyBytes to MemoryView
-        let mview = PyMemoryView_FromObject(self)
+		guard let mview = PyMemoryView_FromObject(self) else { return nil }
         // fetch PyBuffer from MemoryView
         let py_buf = PyMemoryView_GetBuffer(mview)
         var indices = [0]
@@ -228,7 +228,7 @@ extension PythonPointer {
     @inlinable public func strAsData() -> Data? {
         let data_size = PyBytes_Size(self)
         // PyBytes to MemoryView
-        let mview = PyMemoryView_FromObject(self)
+		guard let mview = PyMemoryView_FromObject(self) else { return nil }
         // fetch PyBuffer from MemoryView
         let py_buf = PyMemoryView_GetBuffer(mview)
         var indices = [0]
@@ -243,7 +243,7 @@ extension PythonPointer {
     
     @inlinable public func bytesSlicedAsData(start: Int, size: Int) -> Data? {
         // PyBytes to MemoryView
-        let mview = PyMemoryView_FromObject(self)
+        let mview = PyMemoryView_FromObject(self)!
         // fetch PyBuffer from MemoryView
         let py_buf = PyMemoryView_GetBuffer(mview)
         var indices = [start]
@@ -258,7 +258,7 @@ extension PythonPointer {
     @inlinable public func bytearrayAsData() -> Data? {
         let data_size = PyByteArray_Size(self)
         // PyBytes to MemoryView
-        let mview = PyMemoryView_FromObject(self)
+        let mview = PyMemoryView_FromObject(self)!
         // fetch PyBuffer from MemoryView
         let py_buf = PyMemoryView_GetBuffer(mview)
         var indices = [0]
@@ -276,7 +276,7 @@ extension PythonPointer {
     @inlinable public func bytesAsArray() -> [UInt8]? {
         let data_size = PyBytes_Size(self)
         // PyBytes to MemoryView
-        let mview = PyMemoryView_FromObject(self)
+        let mview = PyMemoryView_FromObject(self)!
         // fetch PyBuffer from MemoryView
         let py_buf = PyMemoryView_GetBuffer(mview)
         var indices = [0]
@@ -295,7 +295,7 @@ extension PythonPointer {
     @inlinable public func bytearrayAsArray() -> [UInt8]? {
         let data_size = PyByteArray_Size(self)
         // PyBytes to MemoryView
-        let mview = PyMemoryView_FromObject(self)
+        let mview = PyMemoryView_FromObject(self)!
         // fetch PyBuffer from MemoryView
         let py_buf = PyMemoryView_GetBuffer(mview)
         var indices = [0]

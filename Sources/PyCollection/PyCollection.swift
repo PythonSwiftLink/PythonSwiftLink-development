@@ -1,5 +1,6 @@
 
 import PySwiftCore
+import PythonCore
 import Foundation
 import PyDecode
 import PyEncode
@@ -56,7 +57,7 @@ extension PythonPointer: Sequence {
 	public typealias Iterator = PySequenceBuffer.Iterator
 	
 	public func makeIterator() -> PySequenceBuffer.Iterator {
-		let fast_list = PySequence_Fast(self, nil)
+		let fast_list = PySequence_Fast(self, nil)!
 		let buffer = PySequenceBuffer(
 			start: PySequence_FastItems(fast_list),
 			count: PySequence_FastSize(fast_list)

@@ -60,7 +60,7 @@ let package = Package(
 		),
 	],
 	dependencies: [
-//		.package(path: "/Volumes/CodeSSD/GitHub/PythonCore"),
+//		.package(path: "/Volumes/CodeSSD/GitHub/Python"),
 		.package(url: "https://github.com/PythonSwiftLink/PythonCore", .upToNextMajor(from: .init(311, 0, 0))),
 		//.package(url: "https://github.com/PythonSwiftLink/PythonTestSuite", branch: "master"),
 			.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
@@ -159,9 +159,9 @@ let package = Package(
 		.target(
 			name: "PySwiftObject",
 			dependencies: [
-				//"PythonCore",
+				"PythonCore",
 				"PySwiftCore",
-				"_PySwiftObject"
+				//"_PySwiftObject"
 				//"PythonTypeAlias"
 			],
 			resources: [
@@ -179,7 +179,13 @@ let package = Package(
 			resources: [
 				
 			],
-			swiftSettings: []
+			swiftSettings: [],
+			linkerSettings: [
+				.linkedLibrary("bz2"),
+				.linkedLibrary("z"),
+				.linkedLibrary("ncurses"),
+				.linkedLibrary("sqlite3"), 
+			]
 		),
 		
 			.target(
@@ -187,11 +193,11 @@ let package = Package(
 				dependencies: [
 					"PythonCore"
 				]
-			)
+			),
 		//			.target(
-		//				name: "PythonCore",
+		//				name: "Python",
 		//				dependencies: ["Python"],
-		//				path: "Sources/PythonCore",
+		//				path: "Sources/Python",
 		//				linkerSettings: [
 		//					.linkedLibrary("ncurses"),
 		//					.linkedLibrary("sqlite3"),
@@ -201,11 +207,11 @@ let package = Package(
 		//			.target(
 		//				name: "PythonTypeAlias",
 		//				dependencies: [
-		//					"PythonCore",
+		//					"Python",
 		//				]
 		//			),
 		
-		//		.binaryTarget(name: "Python", path: "Sources/PythonCore/Python.xcframework"),
-		
+		//		.binaryTarget(name: "Python", path: "Sources/Python/Python.xcframework"),
+			//.binaryTarget(name: "Python", url: "https://github.com/PythonSwiftLink/PythonCore/releases/download/311.0.2/Python.zip", checksum: "410d57419f0ccbc563ab821e3aa241a4ed8684888775f4bdea0dfc70820b9de6")
 	]
 )

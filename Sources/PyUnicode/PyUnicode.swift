@@ -7,19 +7,21 @@
 
 import Foundation
 import PySwiftCore
-
+import PythonCore
 
 extension PyPointer {
 	@inlinable public var unicodeString: String? {
 		
 		guard
 			PyUnicode_Check(self),
-			let ptr = PyUnicode_DATA(self)
+			let ptr = PyUnicode_DATA(self),
+			let kind = PyUnicode_AsKind(rawValue: PyUnicode_GetKind(self))
 		else { return nil }
 		
-		let kind = PyUnicode_GetKind(self)
+		
 		let length = PyUnicode_GetLength(self)
-		switch PyUnicode_AsKind(rawValue: kind) {
+		switch kind {
+		//switch kind {
 		case .PyUnicode_WCHAR_KIND:
 			return nil
 		case .PyUnicode_1BYTE_KIND:
@@ -34,9 +36,6 @@ extension PyPointer {
 			let size = length * MemoryLayout<Py_UCS4>.stride
 			let data = Data(bytesNoCopy: ptr, count: size, deallocator: .none)
 			return String(data: data, encoding: .utf32LittleEndian)
-		case .none:
-			print(".none",kind)
-			return nil
 		}
 	}
 	

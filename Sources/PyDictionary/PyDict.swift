@@ -3,6 +3,7 @@ import PySwiftCore
 import PyEncode
 import PyDecode
 //import PythonTypeAlias
+import PythonCore
 
 public func _PyDict_GetItem(_ dict: PyPointer, _ key: String) -> PyPointer? {
 	key.withCString { PyDict_GetItemString(dict, $0) }

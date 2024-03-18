@@ -7,7 +7,7 @@
 
 import Foundation
 import PySwiftCore
-
+import PythonCore
 
 public extension Data {
 	init(memoryviewNoCopy o: PyPointer) throws {

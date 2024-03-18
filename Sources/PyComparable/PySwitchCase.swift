@@ -7,6 +7,7 @@
 
 import Foundation
 import PySwiftCore
+import PythonCore
 
 public protocol PyTypeProtocol {
 	static func ~=(l: Self, r: PyPointer) -> Bool

@@ -4,6 +4,8 @@ import Foundation
 import PySwiftCore
 import PyCollection
 import PyDecode
+import PythonCore
+
 @inlinable
 public func UnPackPyPointer<T: AnyObject>(with type: PythonType, from self: PyPointer?) throws -> [T] {
 	guard

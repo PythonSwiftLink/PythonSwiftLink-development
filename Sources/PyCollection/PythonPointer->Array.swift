@@ -2,7 +2,7 @@ import Foundation
 import PySwiftCore
 import PyDecode
 //import PythonTypeAlias
-
+import PythonCore
 extension PyPointer {
 
 //    @inlinable
@@ -45,7 +45,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [PythonPointer] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -61,7 +61,7 @@ extension PyPointer {
 
 //    @inlinable
 //    public __consuming func array() -> [PythonPointerU] {
-//        let fast_list = PySequence_Fast(self, "")
+//        let fast_list = PySequence_Fast(self, "")!
 //        let list_count = PySequence_FastSize(fast_list)
 //        let fast_items = PySequence_FastItems(fast_list)
 //        let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -77,7 +77,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [String] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -97,7 +97,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Int] {
-        let fast_list = PySequence_Fast(self, nil)
+        let fast_list = PySequence_Fast(self, nil)!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -113,7 +113,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [UInt] {
-        let fast_list = PySequence_Fast(self, nil)
+        let fast_list = PySequence_Fast(self, nil)!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -129,7 +129,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Int64] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -145,7 +145,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [UInt64] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -161,7 +161,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Int32] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -177,7 +177,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [UInt32] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -193,7 +193,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Int16] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -209,7 +209,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [UInt16] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -225,7 +225,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Int8] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -241,7 +241,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [UInt8] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -257,7 +257,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Float] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -273,7 +273,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Double] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
@@ -288,7 +288,7 @@ extension PyPointer {
 
     @inlinable
     public __consuming func array() -> [Bool] {
-        let fast_list = PySequence_Fast(self, "")
+        let fast_list = PySequence_Fast(self, "")!
         let list_count = PySequence_FastSize(fast_list)
         let fast_items = PySequence_FastItems(fast_list)
         let buffer = UnsafeBufferPointer(start: fast_items, count: list_count)
