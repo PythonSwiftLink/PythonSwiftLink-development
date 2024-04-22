@@ -40,7 +40,7 @@ public extension Optional where Wrapped == UnsafeMutablePointer<PyTypeObject> {
 	}
 }
 
-extension UnsafeMutablePointer where Pointee == PyTypeObject {
+public extension UnsafeMutablePointer where Pointee == PyTypeObject {
 	
 	static let PyType: Self = .init(&PyType_Type)
 	static let PyBaseObject: Self = .init(&PyBaseObject_Type)
