@@ -194,6 +194,20 @@ let package = Package(
 					"PythonCore"
 				]
 			),
+		.testTarget(
+			name: "PythonSwiftCoreTests",
+			dependencies: [
+				"PythonCore",
+				"PySwiftCore",
+				"PyExecute",
+				"PyCollection",
+				"PyDictionary"
+				
+			],
+			resources: [
+				.copy("python_stdlib"),
+			]
+		),
 		//			.target(
 		//				name: "Python",
 		//				dependencies: ["Python"],

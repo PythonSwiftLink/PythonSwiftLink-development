@@ -60,6 +60,12 @@ public func PyDict_SetItem(_ dict: PyPointer?, _ key: String, _ value: PyPointer
     key.withCString { PyDict_SetItemString(dict, $0, value) }
 }
 
+public func PyDict_Contains(_ dict: PyPointer, _ key: String) -> Bool {
+	let k = key.pyPointer
+	defer { k.decref() }
+	return PyDict_Contains(dict, k) == 1
+}
+
 public func PyDict_SetItem_Reduced(_ dict: PyPointer,_ next:  Dictionary<String, PyPointer>.Element) -> PyPointer {
     _ = next.key.withCString { PyDict_SetItemString(dict, $0, next.value) }
     return dict
