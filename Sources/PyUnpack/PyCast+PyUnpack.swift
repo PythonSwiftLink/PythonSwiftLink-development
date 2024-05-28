@@ -102,6 +102,20 @@ public func UnPackPySwiftObject<T: AnyObject>(with self: PySwiftObjectPointer) -
     return Unmanaged.fromOpaque(pointee.swift_ptr).takeUnretainedValue()
 }
 
+
+
+@inlinable
+public func getPySwiftObject<T: AnyObject, R>(with self: PySwiftObjectPointer,key: KeyPath<T,R>, as: T.Type) -> R {
+	guard let pointee = self?.pointee else { fatalError("self is not a PySwiftObject") }
+	return Unmanaged<T>.fromOpaque(pointee.swift_ptr).takeUnretainedValue()[keyPath: key]
+}
+
+@inlinable
+public func getPySwiftObject<T: AnyObject, R>(with self: PySwiftObjectPointer,key: KeyPath<T,R>) -> R {
+	guard let pointee = self?.pointee else { fatalError("self is not a PySwiftObject") }
+	return Unmanaged<T>.fromOpaque(pointee.swift_ptr).takeUnretainedValue()[keyPath: key]
+}
+
 @inlinable
 public func UnPackPyPointer<T: AnyObject>(with check: PythonType, from self: PyPointer, as: T.Type) -> T {
     guard
@@ -159,4 +173,10 @@ public func UnPackPyPointer<T: AnyObject>(with check: PythonType, from self: PyP
 //        let pointee = unsafeBitCast(self, to: PySwiftObjectPointer.self)?.pointee
 //    else { fatalError("self is not a PySwiftObject") }
 //    return Unmanaged.fromOpaque(pointee.swift_ptr).takeUnretainedValue()
+//}
+//import AVFoundation
+//fileprivate func playground() {
+//	let py_swift = PySwiftObjectPointer.init(nilLiteral: ())!
+//	
+//	let string = getPySwiftObject(with: py_swift, key: \AVCaptureDevice.uniqueID )
 //}

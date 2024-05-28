@@ -58,6 +58,10 @@ let package = Package(
 			name: "PyDecode",
 			targets: ["PyDecode"]
 		),
+		.library(
+			name: "PyTypes",
+			targets: ["PyTypes"]
+		),
 	],
 	dependencies: [
 //		.package(path: "/Volumes/CodeSSD/GitHub/Python"),
@@ -136,7 +140,7 @@ let package = Package(
 			name: "PyComparable",
 			dependencies: [
 				"PySwiftCore",
-				
+				"PyTypes",
 				//				"PyEncode"
 			]
 		),
@@ -153,7 +157,13 @@ let package = Package(
 			]
 		),
 		
-		
+			.target(
+				name: "PyTypes",
+				dependencies: [
+					"PyEncode",
+					"PySwiftCore",
+				]
+			),
 		
 		
 		.target(

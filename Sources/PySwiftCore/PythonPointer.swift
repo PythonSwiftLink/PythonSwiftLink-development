@@ -24,11 +24,15 @@ extension PyPointer {
             Py_IncRef(self)
             return self
         }
+	
     public var xDECREF: PyPointer {
         Py_DecRef(self)
         return self
     }
     
+	public var newRef: PyPointer {
+		Py_NewRef(self)
+	}
     //@inlinable public static func Dict: Pyk
 }
 

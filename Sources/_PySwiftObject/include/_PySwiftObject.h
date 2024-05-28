@@ -14,6 +14,9 @@ typedef struct {
 	PyObject_HEAD
 	PyObject* dict;
 	void* swift_ptr;
+	
+	//int object_info; // considering this
+	
 } PySwiftObject;
 
 PyModuleDef_Base _PyModuleDef_HEAD_INIT;

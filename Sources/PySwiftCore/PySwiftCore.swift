@@ -15,3 +15,8 @@ public extension PySendResultFlag {
 		.init(rawValue)
 	}
 }
+
+public extension Int32 {
+	static let FALSE: Self = 0
+	static let TRUE: Self = 1
+}

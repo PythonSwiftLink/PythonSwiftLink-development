@@ -6,6 +6,7 @@ import PySwiftCore
 
 public typealias PyConvertible = PyEncProtocol
 public typealias PyEncodable = PyEncProtocol
+public typealias SwiftToPy = PyEncProtocol
 
 public protocol PyEncProtocol {
 	
@@ -296,8 +297,19 @@ extension Dictionary: PyEncodable where Key == StringLiteralType, Value == PyEnc
     
 }
 
-
-
+extension KeyValuePairs: PyEncodable where Key: PyEncodable, Value: PyEncodable {
+	public var pyPointer: PyPointer {
+		let dict = PyDict_New()!
+		for (k, v) in self {
+			let key = k.pyPointer
+			let o = v.pyPointer
+			PyDict_SetItem(dict, key, o)
+			_Py_DecRef(key)
+			_Py_DecRef(o)
+		}
+		return dict
+	}
+}
 extension PythonError: PyConvertible {
 
 	public var pyPointer: PyPointer {

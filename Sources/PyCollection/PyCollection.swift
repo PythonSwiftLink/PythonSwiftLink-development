@@ -56,7 +56,7 @@ extension PythonPointer: Sequence {
 	
 	public typealias Iterator = PySequenceBuffer.Iterator
 	
-	public func makeIterator() -> PySequenceBuffer.Iterator {
+	public func makeIterator_old() -> PySequenceBuffer.Iterator {
 		let fast_list = PySequence_Fast(self, nil)!
 		let buffer = PySequenceBuffer(
 			start: PySequence_FastItems(fast_list),
@@ -67,6 +67,25 @@ extension PythonPointer: Sequence {
 		return buffer.makeIterator()
 	}
 	
+	public func makeIterator() -> PySequenceBuffer.Iterator {
+		//let fast_list = PySequence_Fast(self, nil)!
+		let buffer = try! self.withMemoryRebound(to: PyListObject.self, capacity: 1) { pointer in
+			let o = pointer.pointee
+			return PySequenceBuffer(start: o.ob_item, count: o.allocated)
+		}
+		return buffer.makeIterator()
+	}
+	
+	@inlinable
+	public func pyMap<T>(_ transform: (PyPointer) throws -> T) rethrows -> [T] where T: PyDecodable {
+		try self.withMemoryRebound(to: PyListObject.self, capacity: 1) { pointer in
+			let o = pointer.pointee
+			return try PySequenceBuffer(start: o.ob_item, count: o.allocated).map { element in
+				guard let element = element else { throw PythonError.sequence }
+				return try transform(element)
+			}
+		}
+	}
 }
 
 extension PythonPointer {
