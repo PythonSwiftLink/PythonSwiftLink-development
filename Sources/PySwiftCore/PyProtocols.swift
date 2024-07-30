@@ -18,7 +18,9 @@ public protocol PyBufferProtocol_AnyClass: AnyObject {
 	static func __fill_buffer__(AnyObject src: Self, buffer: UnsafeMutablePointer<Py_buffer>) -> Int32
 }
 
-
+public protocol PyBytesProtocol {
+	func __bytes__() -> PyPointer?
+}
 
 public protocol PySequenceProtocol {
 	func __len__() -> Int
@@ -39,9 +41,7 @@ public protocol PyMappingProtocol {
 
 }
 
-public protocol PyMutableMappingProtocol {
-	func __len__() -> Int
-	func __getitem__(_ key: PyPointer?) -> PyPointer?
+public protocol PyMutableMappingProtocol: PyMappingProtocol {
 	func __setitem__(_ key: PyPointer?, _ item: PyPointer?) -> Int32
 //	func __getitem__(key: String) -> PyPointer?
 //	func __setitem__(key: String, value: PyPointer) -> Int32
@@ -56,7 +56,17 @@ public protocol PyHashable {
     var __hash__: Int { get }
 }
 
+public protocol PyStrProtocol {
+	func __str__() -> String
+}
 
+public protocol PyIntProtocol {
+	func __int__() -> Int
+}
+
+public protocol PyFloatProtocol {
+	func __float__() -> Double
+}
 
 public protocol PyNumberProtocol {
 	func __nb_add__(_ other: PyPointer?) -> PyPointer?
@@ -94,4 +104,17 @@ public protocol PyNumberProtocol {
 	func __nb_index__() -> PyPointer?
 	func __nb_matrix_multiply__(_ other: PyPointer?) -> PyPointer?
 	func __nb_inplace_matrix_multiply__(_ other: PyPointer?) -> PyPointer?
+}
+
+public protocol PyAsyncIterableProtocol {
+	func __am_aiter__() -> PyPointer?
+}
+
+public protocol PyAsyncIteratorProtocol {
+	func __am_anext__() -> PyPointer?
+}
+
+public protocol PyAsyncProtocol: PyAsyncIteratorProtocol, PyAsyncIterableProtocol {
+	func __am_await__() -> PyPointer?
+	func __am_send__(_ arg: PyPointer?, _ kwargs: UnsafeMutablePointer<PyPointer?>?) -> PySendResultFlag
 }
